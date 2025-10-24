@@ -850,6 +850,9 @@ class ReflectionAttribute implements Reflector
     private function __clone(): void {}
 
     private function __construct() {}
+
+    public static function getCurrent(): Reflector {}
+
 }
 
 class ReflectionEnum extends ReflectionClass
