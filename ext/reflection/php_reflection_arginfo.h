@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: fd645a0b0db39d94ca25b39ffe64d7f05bad6bea */
+ * Stub hash: 61909bda378b1d9448eede3d92190dc8378214a4 */
 
 ZEND_BEGIN_ARG_WITH_TENTATIVE_RETURN_TYPE_INFO_EX(arginfo_class_Reflection_getModifierNames, 0, 1, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0, modifiers, IS_LONG, 0)
@@ -650,6 +650,9 @@ ZEND_END_ARG_INFO()
 
 #define arginfo_class_ReflectionAttribute___construct arginfo_class_ReflectionReference___construct
 
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_ReflectionAttribute_getCurrent, 0, 0, Reflector, 0)
+ZEND_END_ARG_INFO()
+
 #define arginfo_class_ReflectionEnum___construct arginfo_class_ReflectionClass___construct
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_ReflectionEnum_hasCase, 0, 1, _IS_BOOL, 0)
@@ -966,6 +969,7 @@ ZEND_METHOD(ReflectionAttribute, newInstance);
 ZEND_METHOD(ReflectionAttribute, __toString);
 ZEND_METHOD(ReflectionAttribute, __clone);
 ZEND_METHOD(ReflectionAttribute, __construct);
+ZEND_METHOD(ReflectionAttribute, getCurrent);
 ZEND_METHOD(ReflectionEnum, __construct);
 ZEND_METHOD(ReflectionEnum, hasCase);
 ZEND_METHOD(ReflectionEnum, getCase);
@@ -1315,6 +1319,7 @@ static const zend_function_entry class_ReflectionAttribute_methods[] = {
 	ZEND_ME(ReflectionAttribute, __toString, arginfo_class_ReflectionAttribute___toString, ZEND_ACC_PUBLIC)
 	ZEND_ME(ReflectionAttribute, __clone, arginfo_class_ReflectionAttribute___clone, ZEND_ACC_PRIVATE)
 	ZEND_ME(ReflectionAttribute, __construct, arginfo_class_ReflectionAttribute___construct, ZEND_ACC_PRIVATE)
+	ZEND_ME(ReflectionAttribute, getCurrent, arginfo_class_ReflectionAttribute_getCurrent, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_FE_END
 };
 
