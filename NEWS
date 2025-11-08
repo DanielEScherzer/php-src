@@ -9,6 +9,10 @@ PHP                                                                        NEWS
   . Fix crashes when trying to instantiate uninstantiable classes via date
     static constructors. (ndossche)
 
+- Intl:
+  . Fixed bug GH-20426 (Spoofchecker::setRestrictionLevel() error message
+    suggests missing constants). (DanielEScherzer)
+
 - Opcache:
   . Fixed bug GH-20329 (opcache.file_cache broken with full interned string
     buffer). (Arnaud)
