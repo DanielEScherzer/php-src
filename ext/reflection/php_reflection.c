@@ -7476,7 +7476,13 @@ ZEND_METHOD(ReflectionAttribute, getCurrent)
 			);
 			return;
 		case ZEND_ATTRIBUTE_TARGET_PROPERTY:
-			break;
+			reflection_property_factory(
+				attr->target_data.target_property->ce,
+				attr->target_data.target_property->name,
+				attr->target_data.target_property,
+				return_value
+			);
+			return;
 		case ZEND_ATTRIBUTE_TARGET_CLASS_CONST:
 			reflection_class_constant_factory(
 				attr->target_data.target_class_constant.name,
