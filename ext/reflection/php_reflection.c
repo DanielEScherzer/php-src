@@ -155,7 +155,8 @@ typedef struct _type_reference {
 // TARGET_FUNCTION: zend_function
 // TARGET_METHOD: zend_function
 // TARGET_PROPERTY: zend_property_info
-// TARGET_CLASS_CONST: zend_class_constant
+// TARGET_CLASS_CONST: zend_class_constant and its name which isn't a part of
+//   the struct
 // TARGET_PARAMETER: TODO
 // TARGET_CONST: TODO
 typedef union _attribute_target_reference {
@@ -163,6 +164,10 @@ typedef union _attribute_target_reference {
 	zend_function *target_function;
 	zend_property_info *target_property;
 	zend_constant *target_const;
+	struct {
+		zend_class_constant *constant;
+		zend_string *name;
+	} target_class_constant;
 	void *other;
 } attribute_target_reference;
 
@@ -4049,7 +4054,9 @@ ZEND_METHOD(ReflectionClassConstant, getAttributes)
 	GET_REFLECTION_OBJECT_PTR(ref);
 
 	attribute_target_reference ref_details;
-	ref_details.other = NULL;
+	ref_details.target_class_constant.constant = ref;
+	zval *constant_name = reflection_prop_name(ZEND_THIS);
+	ref_details.target_class_constant.name = zend_string_copy(Z_STR_P(constant_name));
 	reflect_attributes(INTERNAL_FUNCTION_PARAM_PASSTHRU,
 		ref->attributes, 0, ref->ce, ZEND_ATTRIBUTE_TARGET_CLASS_CONST,
 		ref->ce->type == ZEND_USER_CLASS ? ref->ce->info.user.filename : NULL,
@@ -7465,7 +7472,12 @@ ZEND_METHOD(ReflectionAttribute, getCurrent)
 		case ZEND_ATTRIBUTE_TARGET_PROPERTY:
 			break;
 		case ZEND_ATTRIBUTE_TARGET_CLASS_CONST:
-			break;
+			reflection_class_constant_factory(
+				attr->target_data.target_class_constant.name,
+				attr->target_data.target_class_constant.constant,
+				return_value
+			);
+			return;
 		case ZEND_ATTRIBUTE_TARGET_PARAMETER:
 			break;
 		case ZEND_ATTRIBUTE_TARGET_CONST:
