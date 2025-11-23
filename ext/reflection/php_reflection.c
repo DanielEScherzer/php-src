@@ -7468,7 +7468,13 @@ ZEND_METHOD(ReflectionAttribute, getCurrent)
 			reflection_function_factory(attr->target_data.target_function, NULL, return_value);
 			return;
 		case ZEND_ATTRIBUTE_TARGET_METHOD:
-			break;
+			reflection_method_factory(
+				attr->target_data.target_function->common.scope,
+				attr->target_data.target_function,
+				NULL,
+				return_value
+			);
+			return;
 		case ZEND_ATTRIBUTE_TARGET_PROPERTY:
 			break;
 		case ZEND_ATTRIBUTE_TARGET_CLASS_CONST:
