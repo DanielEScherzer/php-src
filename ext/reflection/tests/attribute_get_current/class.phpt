@@ -17,6 +17,7 @@ class WithDemo {
 
 $case = new ReflectionClass( WithDemo::class );
 echo $case;
+echo "\n";
 $case->getAttributes()[0]->newInstance();
 
 ?>
@@ -39,6 +40,7 @@ Class [ <user> class WithDemo ] {
   - Methods [0] {
   }
 }
+
 Class [ <user> class WithDemo ] {
   @@ %s %d-%d
 

@@ -19,9 +19,11 @@ class WithDemo {
 
 $case = new ReflectionProperty( WithDemo::class, 'prop' );
 echo $case;
+echo "\n";
 $case->getAttributes()[0]->newInstance();
 
 ?>
 --EXPECT--
 Property [ public mixed $prop ]
+
 Property [ public mixed $prop ]

@@ -1,5 +1,5 @@
 --TEST--
-ReflectionAttribute::getCurrent() for class constants
+ReflectionAttribute::getCurrent() for class constant
 --FILE--
 <?php
 
@@ -19,9 +19,11 @@ class WithDemo {
 
 $case = new ReflectionClassConstant( WithDemo::class, 'EXAMPLE' );
 echo $case;
+echo "\n";
 $case->getAttributes()[0]->newInstance();
 
 ?>
 --EXPECT--
 Constant [ public bool EXAMPLE ] { 1 }
+
 Constant [ public bool EXAMPLE ] { 1 }

@@ -157,8 +157,8 @@ typedef struct _type_reference {
 // TARGET_PROPERTY: zend_property_info
 // TARGET_CLASS_CONST: zend_class_constant and its name which isn't a part of
 //   the struct
-// TARGET_PARAMETER: TODO
-// TARGET_CONST: TODO
+// TARGET_PARAMETER: target function, closure (or null), and offset
+// TARGET_CONST: zend_constant
 typedef union _attribute_target_reference {
 	zend_class_entry *target_class;
 	zend_function *target_function;
@@ -168,7 +168,11 @@ typedef union _attribute_target_reference {
 		zend_class_constant *constant;
 		zend_string *name;
 	} target_class_constant;
-	void *other;
+	struct {
+		zend_function *target_function;
+		zval *closure_obj;
+		uint32_t offset;
+	} target_parameter;
 } attribute_target_reference;
 
 /* Struct for attributes */
@@ -2935,7 +2939,9 @@ ZEND_METHOD(ReflectionParameter, getAttributes)
 	zend_class_entry *scope = param->fptr->common.scope;
 
 	attribute_target_reference ref;
-	ref.other = NULL;
+	ref.target_parameter.target_function = param->fptr;
+	ref.target_parameter.closure_obj = Z_ISUNDEF(intern->obj) ? NULL : &intern->obj;
+	ref.target_parameter.offset = param->offset;
 	reflect_attributes(INTERNAL_FUNCTION_PARAM_PASSTHRU,
 		attributes, param->offset + 1, scope, ZEND_ATTRIBUTE_TARGET_PARAMETER,
 		param->fptr->type == ZEND_USER_FUNCTION ? param->fptr->op_array.filename : NULL,
@@ -7491,7 +7497,16 @@ ZEND_METHOD(ReflectionAttribute, getCurrent)
 			);
 			return;
 		case ZEND_ATTRIBUTE_TARGET_PARAMETER:
-			break;
+			zend_function *target_function = attr->target_data.target_parameter.target_function;
+			reflection_parameter_factory(
+				_copy_function(target_function),
+				attr->target_data.target_parameter.closure_obj,
+				target_function->common.arg_info,
+				attr->target_data.target_parameter.offset,
+				attr->target_data.target_parameter.offset < target_function->common.required_num_args,
+				return_value
+			);
+			return;
 		case ZEND_ATTRIBUTE_TARGET_CONST:
 			object_init_ex(return_value, reflection_constant_ptr);
 			reflection_object *intern = Z_REFLECTION_P(return_value);

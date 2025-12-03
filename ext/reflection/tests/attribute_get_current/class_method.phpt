@@ -20,6 +20,7 @@ class WithDemo {
 
 $case = new ReflectionMethod( WithDemo::class, 'method' );
 echo $case;
+echo "\n";
 $case->getAttributes()[0]->newInstance();
 
 ?>
@@ -31,6 +32,7 @@ Method [ <user> public method method ] {
     Parameter #0 [ <required> mixed $param ]
   }
 }
+
 Method [ <user> public method method ] {
   @@ %s %d - %d
 

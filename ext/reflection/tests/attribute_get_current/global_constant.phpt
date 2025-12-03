@@ -15,9 +15,11 @@ const GLOBAL_CONSTANT = true;
 
 $case = new ReflectionConstant( 'GLOBAL_CONSTANT' );
 echo $case;
+echo "\n";
 $case->getAttributes()[0]->newInstance();
 
 ?>
 --EXPECT--
 Constant [ bool GLOBAL_CONSTANT ] { 1 }
+
 Constant [ bool GLOBAL_CONSTANT ] { 1 }

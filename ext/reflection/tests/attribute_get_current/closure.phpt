@@ -14,6 +14,7 @@ $closure = #[Demo("closure")] static function ( mixed $param ) {};
 
 $case = new ReflectionFunction( $closure );
 echo $case;
+echo "\n";
 $case->getAttributes()[0]->newInstance();
 
 ?>
@@ -25,6 +26,7 @@ Closure [ <user> static function {closure:%s:%d} ] {
     Parameter #0 [ <required> mixed $param ]
   }
 }
+
 Closure [ <user> static function {closure:%s:%d} ] {
   @@ %s %d - %d
 

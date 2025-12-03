@@ -17,6 +17,7 @@ function globalFunc(
 
 $case = new ReflectionFunction( 'globalFunc' );
 echo $case;
+echo "\n";
 $case->getAttributes()[0]->newInstance();
 
 ?>
@@ -28,6 +29,7 @@ Function [ <user> function globalFunc ] {
     Parameter #0 [ <required> mixed $param ]
   }
 }
+
 Function [ <user> function globalFunc ] {
   @@ %s %d - %d
 
