@@ -7437,18 +7437,18 @@ ZEND_METHOD(ReflectionAttribute, getCurrent)
 		|| !prev_ex->prev_execute_data->prev_execute_data
 		|| !prev_ex->prev_execute_data->prev_execute_data->func
 	) {
-		zend_throw_error(NULL, "Current function was not invoked via ReflectionAttribute::newInstance() 1");
+		zend_throw_error(NULL, "Current function was not invoked via ReflectionAttribute::newInstance()");
 		RETURN_THROWS();
 	}
 	zend_execute_data *caller_context = prev_ex->prev_execute_data->prev_execute_data;
 	zend_function *caller = caller_context->func;
 	if (caller->type != ZEND_INTERNAL_FUNCTION) {
-		zend_throw_error(NULL, "Current function was not invoked via ReflectionAttribute::newInstance() 2");
+		zend_throw_error(NULL, "Current function was not invoked via ReflectionAttribute::newInstance()");
 		RETURN_THROWS();
 	}
 	zend_internal_function *internal_caller = (zend_internal_function *)caller;
 	if (internal_caller->handler != zim_ReflectionAttribute_newInstance) {
-		zend_throw_error(NULL, "Current function was not invoked via ReflectionAttribute::newInstance() 3");
+		zend_throw_error(NULL, "Current function was not invoked via ReflectionAttribute::newInstance()");
 		RETURN_THROWS();
 	}
 
@@ -7516,12 +7516,8 @@ ZEND_METHOD(ReflectionAttribute, getCurrent)
 			zval_ptr_dtor(name_zv);
 			ZVAL_STR_COPY(name_zv, attr->target_data.target_const->name);
 			return;
+		EMPTY_SWITCH_DEFAULT_CASE()
 	}
-	zend_throw_error(NULL, "Not implemented yet");
-	RETURN_THROWS();
-
-	// zend_object *obj = ZEND_CLOSURE_OBJECT(prev_ex->func);
-	// RETURN_OBJ_COPY(obj);
 }
 
 ZEND_METHOD(ReflectionEnum, __construct)
