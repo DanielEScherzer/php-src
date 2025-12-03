@@ -80,6 +80,7 @@ static zend_always_inline zval *reflection_prop_class(zval *object) {
 
 /* Class entry pointers */
 PHPAPI zend_class_entry *reflector_ptr;
+PHPAPI zend_class_entry *reflection_attribute_target_ptr;
 PHPAPI zend_class_entry *reflection_exception_ptr;
 PHPAPI zend_class_entry *reflection_ptr;
 PHPAPI zend_class_entry *reflection_function_abstract_ptr;
@@ -8062,7 +8063,9 @@ PHP_MINIT_FUNCTION(reflection) /* {{{ */
 
 	reflector_ptr = register_class_Reflector(zend_ce_stringable);
 
-	reflection_function_abstract_ptr = register_class_ReflectionFunctionAbstract(reflector_ptr);
+	reflection_attribute_target_ptr = register_class_ReflectionAttributeTarget(reflector_ptr);
+
+	reflection_function_abstract_ptr = register_class_ReflectionFunctionAbstract(reflector_ptr, reflection_attribute_target_ptr);
 	reflection_function_abstract_ptr->default_object_handlers = &reflection_object_handlers;
 	reflection_function_abstract_ptr->create_object = reflection_objects_new;
 
@@ -8074,7 +8077,7 @@ PHP_MINIT_FUNCTION(reflection) /* {{{ */
 	reflection_generator_ptr->create_object = reflection_objects_new;
 	reflection_generator_ptr->default_object_handlers = &reflection_object_handlers;
 
-	reflection_parameter_ptr = register_class_ReflectionParameter(reflector_ptr);
+	reflection_parameter_ptr = register_class_ReflectionParameter(reflector_ptr, reflection_attribute_target_ptr);
 	reflection_parameter_ptr->create_object = reflection_objects_new;
 	reflection_parameter_ptr->default_object_handlers = &reflection_object_handlers;
 
@@ -8098,7 +8101,7 @@ PHP_MINIT_FUNCTION(reflection) /* {{{ */
 	reflection_method_ptr->create_object = reflection_objects_new;
 	reflection_method_ptr->default_object_handlers = &reflection_object_handlers;
 
-	reflection_class_ptr = register_class_ReflectionClass(reflector_ptr);
+	reflection_class_ptr = register_class_ReflectionClass(reflector_ptr, reflection_attribute_target_ptr);
 	reflection_class_ptr->create_object = reflection_objects_new;
 	reflection_class_ptr->default_object_handlers = &reflection_object_handlers;
 
@@ -8106,11 +8109,11 @@ PHP_MINIT_FUNCTION(reflection) /* {{{ */
 	reflection_object_ptr->create_object = reflection_objects_new;
 	reflection_object_ptr->default_object_handlers = &reflection_object_handlers;
 
-	reflection_property_ptr = register_class_ReflectionProperty(reflector_ptr);
+	reflection_property_ptr = register_class_ReflectionProperty(reflector_ptr, reflection_attribute_target_ptr);
 	reflection_property_ptr->create_object = reflection_objects_new;
 	reflection_property_ptr->default_object_handlers = &reflection_object_handlers;
 
-	reflection_class_constant_ptr = register_class_ReflectionClassConstant(reflector_ptr);
+	reflection_class_constant_ptr = register_class_ReflectionClassConstant(reflector_ptr, reflection_attribute_target_ptr);
 	reflection_class_constant_ptr->create_object = reflection_objects_new;
 	reflection_class_constant_ptr->default_object_handlers = &reflection_object_handlers;
 
@@ -8146,7 +8149,7 @@ PHP_MINIT_FUNCTION(reflection) /* {{{ */
 	reflection_fiber_ptr->create_object = reflection_objects_new;
 	reflection_fiber_ptr->default_object_handlers = &reflection_object_handlers;
 
-	reflection_constant_ptr = register_class_ReflectionConstant(reflector_ptr);
+	reflection_constant_ptr = register_class_ReflectionConstant(reflector_ptr, reflection_attribute_target_ptr);
 	reflection_constant_ptr->create_object = reflection_objects_new;
 	reflection_constant_ptr->default_object_handlers = &reflection_object_handlers;
 
