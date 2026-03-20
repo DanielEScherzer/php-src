@@ -1265,7 +1265,6 @@ ZEND_API zend_class_entry *zend_lookup_class_ex(zend_string *name, zend_string *
 	zend_long previous_lineno = EG(lineno_override);
 	EG(filename_override) = NULL;
 	EG(lineno_override) = -1;
-	zend_exception_save();
 	zval *ce_zval = zend_autoload(autoload_name, lc_name);
 	zend_class_alias *alias = NULL;
 	if (ce_zval) {
@@ -1277,7 +1276,6 @@ ZEND_API zend_class_entry *zend_lookup_class_ex(zend_string *name, zend_string *
 			ce = Z_PTR_P(ce_zval);
 		}
 	}
-	zend_exception_restore();
 	EG(filename_override) = previous_filename;
 	EG(lineno_override) = previous_lineno;
 
