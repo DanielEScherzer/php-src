@@ -2926,6 +2926,7 @@ class StringBuilder {
     // NEW in 8.6
     private const PHP_86_KNOWN = [
         "arguments" => "ZEND_STR_ARGUMENTS",
+        "NoDiscard" => "ZEND_STR_NODISCARD",
     ];
 
     /**
