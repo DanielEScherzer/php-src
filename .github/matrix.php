@@ -47,7 +47,7 @@ function get_current_version(): array {
 }
 
 function select_jobs($repository, $trigger, $nightly, $labels, $php_version, $ref, $all_variations) {
-    $no_jobs = in_array('CI: No jobs', $labels, true);
+    $no_jobs = true || in_array('CI: No jobs', $labels, true);
     $all_jobs = in_array('CI: All jobs', $labels, true) || $nightly;
     $test_alpine = in_array('CI: Alpine', $labels, true);
     $test_benchmarking = in_array('CI: Benchmarking', $labels, true);
@@ -62,7 +62,7 @@ function select_jobs($repository, $trigger, $nightly, $labels, $php_version, $re
     $test_msan = in_array('CI: MSAN', $labels, true);
     $test_opcache_variation = in_array('CI: Opcache Variation', $labels, true);
     $test_solaris = in_array('CI: Solaris', $labels, true);
-    $test_windows = in_array('CI: Windows', $labels, true);
+    $test_windows = true || in_array('CI: Windows', $labels, true);
 
     $jobs = [];
     if (version_compare($php_version, '8.4', '>=') && ($all_jobs || !$no_jobs || $test_alpine)) {

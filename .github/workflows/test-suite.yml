@@ -875,6 +875,9 @@ jobs:
         run: .github/scripts/windows/build.bat
       - name: Test
         run: .github/scripts/windows/test.bat
+      - name: SSH on Failure
+        if: ${{ failure() }}
+        uses: mxschmitt/action-tmate@v3
   FREEBSD:
     if: ${{ fromJson(inputs.branch).jobs.FREEBSD }}
     strategy:
