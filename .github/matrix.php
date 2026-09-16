@@ -173,7 +173,7 @@ if ($discard_cache) {
     @unlink(get_branch_commit_cache_file_path());
 }
 $branch = $argv[3] ?? 'master';
-$nightly = $trigger === 'schedule' || $trigger === 'workflow_dispatch';
+$nightly = false;
 $branches = $nightly && $branch === 'master'
     ? get_branches()
     : [['name' => 'Suite', 'ref' => $branch, 'version' => get_current_version()]];
